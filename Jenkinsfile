@@ -11,7 +11,7 @@ pipeline {
             steps {
                 echo 'Compiling Dockerfile into an immutable Podman image blueprint...'
                 // Jenkins instructs your laptop engine to package the code
-                sh 'podman build -t local-data-pipeline:latest .'
+                sh 'docker build -t local-data-pipeline:latest .'
             }
         }
     }
