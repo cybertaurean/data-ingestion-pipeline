@@ -9,9 +9,11 @@ pipeline {
         }
         stage('Assemble Container Image') {
             steps {
-                echo 'Compiling Dockerfile into an immutable Podman image blueprint...'
-                // Jenkins instructs your laptop engine to package the code
-                sh 'docker build -t local-data-pipeline:latest .'
+                echo 'Compiling Dockerfile into an immutable image via system socket...'
+                script {
+                    // This utilizes the plugin to build the directory via the socket natively
+                    docker.build("local-data-pipeline:latest")
+                }
             }
         }
     }
