@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    
+    environment {
+        // This injects the new tool path right into the pipeline runtime environment
+        PATH = "/var/jenkins_home/tools:${env.PATH}"
+    }
 
     stages {
         stage('Code Checkout') {
@@ -10,10 +15,7 @@ pipeline {
         stage('Assemble Container Image') {
             steps {
                 echo 'Compiling Dockerfile into an immutable image via system socket...'
-                script {
-                    // This utilizes the plugin to build the directory via the socket natively
-                    docker.build("local-data-pipeline:latest")
-                }
+                sh 'docker build -t local-data-pipeline:latest .'
             }
         }
     }
