@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingestion-worker
+  namespace: default
+spec:
+  replicas: 3 # Tells Kubernetes to continuously maintain 3 parallel data pipelines
+  selector:
+    matchLabels:
+      app: ingestion-worker
+  template:
+    metadata:
+      labels:
+        app: ingestion-worker
+    spec:
+      containers:
+        - name: local-data-pipeline
+          image: local-data-pipeline:latest
+          imagePullPolicy: Never # Instructs the cluster to read the image directly from your local laptop memory cache
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: password
+
