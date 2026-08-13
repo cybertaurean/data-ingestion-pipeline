@@ -19,7 +19,7 @@ spec:
           imagePullPolicy: Never # Instructs the cluster to read the image directly from your local laptop memory cache
           env:
             - name: DB_HOST
-              value: "postgres-service" # Tells your Python code to look across the cluster network!
+              value: "postgres-service.default.svc.cluster.local" # Use the absolute full DNS path!
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
