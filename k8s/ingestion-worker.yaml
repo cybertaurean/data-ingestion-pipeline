@@ -18,6 +18,8 @@ spec:
           image: localhost/local-data-pipeline:v1
           imagePullPolicy: Never # Instructs the cluster to read the image directly from your local laptop memory cache
           env:
+            - name: DB_HOST
+              value: "postgres-service" # Tells your Python code to look across the cluster network!
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
