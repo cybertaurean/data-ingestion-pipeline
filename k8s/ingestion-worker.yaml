@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: local-data-pipeline
-          image: local-data-pipeline:latest
+          image: localhost/local-data-pipeline:v1
           imagePullPolicy: Never # Instructs the cluster to read the image directly from your local laptop memory cache
           env:
             - name: DB_PASSWORD
